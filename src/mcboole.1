@@ -1,0 +1,53 @@
+.TH MCBOOLE 1
+.SH NAME
+mcboole \- two level exact logic minimizer
+.SH SYNTAX
+.B mcboole 
+[ options ]
+[-i inputfile -o outpoutfile] | [-io inoutfile] | [input-file output-file]
+.SH DESCRIPTION
+The input file has the default \fI.in\fP extension while the output file
+has the default \fI.out\fP extension. When only the extension changes between
+the input and output file, this name may be specified with the \fI\-io\fP 
+flag. The program may also be run as a filter between stdin and stdout.
+
+Many options are available to control the operation of this program and are
+detailed below.
+.TP
+.B \-b
+branching depth. Maximum level of branching allowed. If the cycles have 
+a greater depth, the user will be warned and a heuristic solution 
+will be taken.
+.TP
+.B \-rit 
+input terminator of cubes in the input file. It is \fIblank\fP by default.
+.TP
+.B \-rot 
+output terminator of cubes in the input file. It is \fInewline\fP by default
+.TP
+.B \-pit 
+input terminator of cubes for the output. It is \fIblank\fP by default.
+.TP
+.B \-pot 
+output terminator of cubes for the output. It is \fInewline\fP by default.
+.TP
+.B \-nint 
+when set, intersecting cubes at input will not be accepted. Often,
+intersecting cubes in a truth table may indicate an error while they are
+frequent and helpful in a minimized PLA personality matrix.
+.TP
+.B \-min 
+when set, the program will minimize not only the number of product
+terms but will also give the minimal number of literals at input.
+This costs however some additional cpu time.
+.TP
+.B \-v   
+The program will put itself in verbose mode and give a lot of
+interesting information.
+.TP
+.B \-vv  The program gets very verbose.
+
+.SH AUTHOR
+Michel Dagenais
+.SH "SEE ALSO"
+Espresso-exact from Berkeley

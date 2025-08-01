@@ -1,0 +1,27 @@
+/*
+
+McBOOLE : CPU time 0s, 8 nodes, var : in 4 out 2 literal : in 32 out 8
+*/
+/*
+
+McBOOLE : CPU time 0s, The function has 5 prime implicants
+*/
+/*
+
+McBOOLE : CPU time 0s, The function has 3 essential PI
+*/
+/*
+
+McBOOLE : CPU time 0s, The solution contains 3 nodes
+*/
+/*
+
+McBOOLE : CPU time 0s, Final solution, literal : 8 input 5 output
+*/
+x101 11
+x011 01
+0xx1 11
+/*
+
+McBOOLE : total CPU time 0, end, max branching depth reached : 0
+*/

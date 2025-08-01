@@ -1,0 +1,62 @@
+/*
+    McBooole Multiple Output Boolean Minimizer Program Example 
+    Run by typing:  
+                    MCBOOLE EX1.MCB EX1.OUT <ENTER>   
+    
+    (The first file is this input file, the second file is the                   
+     output file containing the minimized function).
+
+     You may type 
+                       MCBOOLE -help <ENTER> 
+                       
+     to see a list of the various "switch options" that may be 
+     set when running MCBOOLE.
+
+     Note that anything between the standard C comment delimiters is 
+     a comment.  This is very important for documentation of your 
+     input file.
+
+     Note that McBoole input consists of two columns of binary  
+     bit patterns.  These two columns must be separated by a space.  
+     
+     The left column lists the input cubes (minterms or partially
+     minimized product terms).  Each bit position in this first bit    
+     pattern represents a different input variable.  Use a 1 to indicate 
+     that a certain input variable is present in the product term   
+     in asserted form, a 0 to indicate a certain input variable is present  
+     in the product term in inverted form.  You may also use a 
+     small "x" to indicate that a certain input variable is NOT 
+     present in the product term at all.   
+     
+     The right column describes the role that each of these product terms  
+     plays in contributing to the various desired output functions.  Each bit 
+     position in the right column corresponds to a different output function. 
+     If a "1" is entered into this right bit pattern, the corresponding 
+     product term is admitted to that output function.  If a "0" is 
+     listed, that product term is NOT admitted to that output function.  
+     If a "d" is listed, that product term represents a "don't care" 
+     situation (for the corresponding output function) for the minterm 
+     (or group of minterms if the left bit pattern contains one or more x's) 
+     represented by the bit pattern on the left.  
+
+     The example below solves the following multiple-output minimization 
+     problem:
+             
+             F(ABCD) = m(3,5,7,13,) + d(1,15)
+             W(ABCD) = m(1,3,13,11)  + d(0,5,7)
+ABCD FW         
+         */     
+0001 d1 
+0101 1d     
+0111 1d     /* Ex: minterm 7 present in fcn F and don't care in fcn W */
+1101 11
+1111 d0
+0011 11     
+1011 01
+0000 0d
+
+
+
+
+  
+
