@@ -51,11 +51,11 @@ float *utime,*stime,*ttime;
 #include <time.h>
 
 static int begin = 1;
-static long begin_time;
+static time_t begin_time;
 
 long get_time()
 {
-  long elapsed_time;
+  time_t elapsed_time;
 
   if(begin)
    { begin = 0;

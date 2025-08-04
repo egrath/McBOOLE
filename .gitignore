@@ -1,3 +1,4 @@
 build/*.o
-build/mcbool
+build/mcboole
+build/mcboole.exe
 
