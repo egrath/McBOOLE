@@ -155,7 +155,7 @@ char terminator,literal[4];
   nb_bit_read = 0;
   for(; ;)
    { *word = mask00;
-     for( mask = 3 ; mask != NULL ; mask = mask << 2)
+     for( mask = 3 ; mask != 0 ; mask = mask << 2)
 
 /* We read characters at input until the EOF or the terminator is reached */
 

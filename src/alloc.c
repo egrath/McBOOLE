@@ -152,7 +152,7 @@ struct node *alloc_node()
       temp_node->next_node = NULL;
       temp_node->ancestors = NULL;
       temp_node->descendants = NULL;
-      temp_node->status = NULL;
+      temp_node->status = 0;
       return(temp_node);
     }
 
@@ -295,7 +295,7 @@ struct cube_list *cube;
 flush_cube_list()
 
 {
-   nb_alloc_cube_list = NULL;
+   nb_alloc_cube_list = 0;
    for(; cube_block_list != NULL ; cube_block_list = temp_block)
     { temp_block = cube_block_list->next_block;
       free((char *)cube_block_list);
@@ -338,8 +338,8 @@ struct binary *alloc_binary()
    if(binary_free_list != NULL)
     { temp_binary = binary_free_list;
       binary_free_list = binary_free_list->is0._.subtree;
-      temp_binary->is0.status = NULL;
-      temp_binary->is1.status = NULL;
+      temp_binary->is0.status = 0;
+      temp_binary->is1.status = 0;
       temp_binary->isx = NULL;
       return(temp_binary);
     }

@@ -66,12 +66,12 @@ init_mask_and_codes()
 {
   long int mask;
 
-  mask00 = NULL;
-  mask11 = NULL;
-  mask10 = NULL;
-  mask01 = NULL;
+  mask00 = 0;
+  mask11 = 0;
+  mask10 = 0;
+  mask01 = 0;
 
-  for(mask = 3 ; mask != NULL ; mask = mask << 2)
+  for(mask = 3 ; mask != 0 ; mask = mask << 2)
    { mask11 = (mask11 << 2) | 3;
      mask01 = (mask01 << 2) | 1;
      mask10 = (mask10 << 2) | 2;
@@ -94,15 +94,15 @@ init_mask_and_codes()
    at a little cpu cost; the operation required to compute the word index
    will be a division instead of a simple shift.			*/
 
-  log2_var_per_word = NULL;
-  mask_bit_index = NULL;
-  for(mask = 1 ; mask != NULL ; mask = mask << 1)
+  log2_var_per_word = 0;
+  mask_bit_index = 0;
+  for(mask = 1 ; mask != 0 ; mask = mask << 1)
    { if(mask == var_per_word) break;
      log2_var_per_word++;
      mask_bit_index = (mask_bit_index << 1) | 1;
    }
 
-  if(mask == NULL) fatal_system_error(
+  if(mask == 0) fatal_system_error(
    "The program should be modified for this machine see init_mask_and_codes");
 
 #ifdef DEBUG

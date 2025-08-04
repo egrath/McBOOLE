@@ -370,13 +370,13 @@ struct cube_list **list;
 	intersection 							*/
 
       { result = (*sharping_cube & *present_cube) ^ *present_cube;
-        if(result != NULL)
+        if(result != 0)
 
 /*	the intersection does not cover all the cube we will have to split it
 	for all the variables for which we have X in the cube in the list and
 	not X for the sharping cube					*/
 
-         { for(mask_var = 3 ; mask_var != NULL ; mask_var = mask_var << 2)
+         { for(mask_var = 3 ; mask_var != 0 ; mask_var = mask_var << 2)
 
             { if(result & mask_var)
 
@@ -412,14 +412,14 @@ struct cube_list **list;
 	operation, the last cube becomes empty and is removed from the list.
 	After we go to process the next cube in the list		*/
 
-     result = NULL;
+     result = 0;
      for(; sharping_cube < end_output;)
       { *present_cube = *present_cube & (~ *sharping_cube);
         if(*present_cube) result = 1;
         sharping_cube++;
         present_cube++;
       }
-     if(result == NULL)
+     if(result == 0)
       { temp_pointer = present_cube_list->next_cube;
         free_cube_list(present_cube_list);
         present_cube_list = temp_pointer;

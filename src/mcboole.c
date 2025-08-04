@@ -60,10 +60,11 @@ AUTHOR
 
 **********************************************************************/
 
+#include <stdio.h>
 #include "cubes.h"
 #include "param.h"
 
-FILE *input_file = stdin, *output_file = stdout;
+FILE *input_file, *output_file;
 
 int 
 	EPI_LIST,		/* tells if we should list the epi cubes */
@@ -129,6 +130,9 @@ main(argc,argv)
 int argc;
 char **argv;
 {
+  input_file = stdin;
+  output_file = stdout;
+
   struct node 
 	*temp_node,	/* temp pointer in the list */
 	*list;		/* list of nodes to minimize */

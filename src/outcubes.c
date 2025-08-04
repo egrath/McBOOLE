@@ -198,7 +198,7 @@ long int *cube;
   end_of_cube = cube + total_length;
   cube += input_length;
   for(; cube < end_of_cube ; cube++)
-   { if(*cube != NULL) return(0);
+   { if(*cube != 0) return(0);
    }
   return(1);
 }

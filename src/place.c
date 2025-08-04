@@ -295,7 +295,7 @@ increment_pass_count()
 
 /* we have an overflow of the pass counter */
 
-  if(pass_counter == NULL)
+  if(pass_counter == 0)
    { init_pass_count();
      pass_counter += 2;
    }
@@ -312,7 +312,7 @@ init_pass_count()
 {
   struct node **cursor;		/* temp pointer in the vector to reset */
 
-  pass_counter = NULL;
+  pass_counter = 0;
   cursor = prime_nodes;
   for(; cursor <  end_prime ; cursor++)
    { (*cursor)->count = pass_counter;

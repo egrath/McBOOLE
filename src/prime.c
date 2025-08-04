@@ -34,7 +34,7 @@ AUTHOR
 ***********************************************************************/
 
 #include "cubes.h"
-#include <malloc.h>
+#include <stdlib.h>
 
 struct node
 	*common_list,		/* list when converting a tree in a list */

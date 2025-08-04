@@ -90,6 +90,8 @@ AUTHOR
 ************************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
+
 extern FILE *output_file;
 
 fatal_user_error(string)

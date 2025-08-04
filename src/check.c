@@ -44,12 +44,15 @@ retain_check_node()
   scanned_cube = copy_and_alloc_cube_list(scanned_node->cube);
   for(; temp_in_vector < unretain_nodes; temp_in_vector++)
    { if(((*temp_in_vector)->status & DECIDED) && 
-	(((*temp_in_vector)->status & RETAINED) == NULL)) continue;
+	(((*temp_in_vector)->status & RETAINED) == 0)) continue;
      if((*temp_in_vector) == scanned_node) continue;
      if(disjoint_sharp(&scanned_cube,(*temp_in_vector)->cube))
-      { foutput_cube_and_links(stderr,scanned_node);
-	foutput_graph_vector(stderr,retained_nodes,unretain_nodes,);
-	fatal_program_error("no way you will retain this node");
+      {
+#if DEBUG
+		  foutput_cube_and_links(stderr,scanned_node);
+		  foutput_graph_vector(stderr,retained_nodes,unretain_nodes);
+#endif
+		  fatal_program_error("no way you will retain this node");
       }
    }
 
@@ -76,10 +79,13 @@ unretain_inferior_check_node()
   temp = prime_nodes;
   for(; temp < unretain_nodes ; temp++)
    { temp_node = *temp;
-     if((temp_node->status & RETAINED) == NULL) continue;
+     if((temp_node->status & RETAINED) == 0) continue;
      if(disjoint_sharp(&temp_cube,temp_node->cube))
-      { foutput_cube_and_links(stderr,scanned_node);
-	fatal_program_error("an inferior cube is in fact covered");
+      {
+#if DEBUG
+		  foutput_cube_and_links(stderr,scanned_node);
+#endif
+		  fatal_program_error("an inferior cube is in fact covered");
       }
    }
 
@@ -96,8 +102,11 @@ unretain_inferior_check_node()
    }
 
   if(temp_cube != NULL)
-   { foutput_cube_and_links(stderr,scanned_node);
-     fatal_program_error("a node is unretained inferior but should not");
+   {
+#if DEBUG
+	   foutput_cube_and_links(stderr,scanned_node);
+#endif
+	   fatal_program_error("a node is unretained inferior but should not");
    }
 
   scanned_node->status = DECIDED_INFERIOR;
@@ -141,15 +150,18 @@ check_cycle()
 
   temp1 = retained_nodes;
   for(; temp1 < unretain_nodes ; temp1++)
-   { if(((*temp1)->status & DECIDED) == NULL)
+   { if(((*temp1)->status & DECIDED) == 0)
       { temp2 = prime_nodes;
 	temp_cube = copy_and_alloc_cube_list((*temp1)->cube);
 	for(; temp2 < unretain_nodes ; temp2++)
-	 { if(((*temp2)->status & RETAINED) == NULL) continue; 
+	 { if(((*temp2)->status & RETAINED) == 0) continue; 
 	   if((*temp1) == (*temp2)) continue;
 	   if(disjoint_sharp(&temp_cube,(*temp2)->cube))
-	    { foutput_cube_and_links(stderr,(*temp1));
-	      fatal_program_error("a node in the cycle is in fact covered");
+	    {
+#if DEBUG
+			foutput_cube_and_links(stderr,(*temp1));
+#endif
+			fatal_program_error("a node in the cycle is in fact covered");
 	    }
 	 }
 	temp2 = retained_nodes;
@@ -159,8 +171,11 @@ check_cycle()
 	   if(disjoint_sharp(&temp_cube,(*temp2)->cube)) break;
 	 }
 	if(temp_cube != NULL)
-	 { foutput_cube_and_links(stderr,(*temp1));
-	   fatal_program_error("a node in the cycle is in fact essential");
+	 {
+#if DEBUG
+		 foutput_cube_and_links(stderr,(*temp1));
+#endif
+		 fatal_program_error("a node in the cycle is in fact essential");
 	 }
       }
    }
@@ -209,7 +224,7 @@ check_graph()
 
   temp1 = prime_nodes;
   for(; temp1 < end_prime ; temp1++)
-   { temp_node = *temp1
+   { temp_node = *temp1;
      temp_parent = temp_node->ancestors;
      for(; temp_parent != NULL ; temp_parent = temp_parent->next_parent)
       { parent_node = temp_parent->parent;
@@ -218,8 +233,11 @@ check_graph()
 	 { if(parent_parent->parent == temp_node) break;
 	 }
 	if(parent_parent == NULL)
-	 { foutput_cube_and_links(stderr,temp_node);
-	   fatal_program_error("inconsistancy in the graph");
+	 {
+#if DEBUG
+		 foutput_cube_and_links(stderr,temp_node);
+#endif
+		 fatal_program_error("inconsistancy in the graph");
 	 }
       }
      temp_parent = temp_node->descendants; 
@@ -230,8 +248,11 @@ check_graph()
 	 { if(parent_parent->parent == temp_node) break;
 	 }
 	if(parent_parent == NULL)
-	 { foutput_cube_and_links(stderr,temp_node);
-	   fatal_program_error("inconsistancy in the graph");
+	 {
+#if DEBUG
+		 foutput_cube_and_links(stderr,temp_node);
+#endif
+		 fatal_program_error("inconsistancy in the graph");
 	 }
       }
    }
@@ -255,15 +276,18 @@ check_graph()
       }
      if(temp_cube != NULL)
       { free_list_of_cubes(&temp_cube);
-	if((temp_node->status & BASIC) == NULL)
-	 { foutput_cube_and_links(stderr,temp_node);
-	   fatal_program_error("this cube is in fact basic");
+	if((temp_node->status & BASIC) == 0)
+	 {
+#if DEBUG
+		 foutput_cube_and_links(stderr,temp_node);
+#endif
+		 fatal_program_error("this cube is in fact basic");
 	 }
       }
    }
   
   temp1 = prime_nodes;
-  for(; temp1 < end_prime ; temp_node = temp1++)
+  for(; temp1 < end_prime ; temp_node = *(temp1++))
    { if((*temp1)->status & BASIC)
       { nb_basic++;
       }
@@ -279,17 +303,23 @@ check_graph()
      temp_parent = temp_node->ancestors;
      for(; temp_parent != NULL ; temp_parent = temp_parent->next_parent)
       { if(intersect(temp_node->cube,temp_parent->parent->cube) == 0)
-	 { foutput_cube_and_links(stderr,temp_node);
-	   foutput_cube_and_links(stderr,temp_parent->parent);
-	   fatal_program_error("the two nodes above are related but disjoint");
+	 {
+#if DEBUG
+		 foutput_cube_and_links(stderr,temp_node);
+		 foutput_cube_and_links(stderr,temp_parent->parent);
+#endif
+		 fatal_program_error("the two nodes above are related but disjoint");
 	 }
       }
      temp_parent = temp_node->descendants;
      for(; temp_parent != NULL ; temp_parent = temp_parent->next_parent)
       { if(intersect(temp_node->cube,temp_parent->parent->cube) == 0)
-	 { foutput_cube_and_links(stderr,temp_node);
-	   foutput_cube_and_links(stderr,temp_parent->parent);
-	   fatal_program_error("the two nodes above are related but disjoint");
+	 {
+#if DEBUG
+		 foutput_cube_and_links(stderr,temp_node);
+		 foutput_cube_and_links(stderr,temp_parent->parent);
+#endif
+		 fatal_program_error("the two nodes above are related but disjoint");
 	 }
       }
    }
@@ -304,21 +334,27 @@ check_graph()
      scan_intersecting_ancestors();
      current_node = scanned_node;
      scan_intersecting_descendants();
-     parent_node = list;
+     parent_node = temp_node;
      nb_scanned = 0;
      for(; parent_node != NULL ; parent_node = parent_node->next_node)
       { if(intersect(parent_node->cube,temp_node->cube))
 	 { if((parent_node->count | ONE) != odd_pass_counter)
-	    { foutput_cube_and_links(stderr,temp_node);
+	    {
+#if DEBUG
+		  foutput_cube_and_links(stderr,temp_node);
 	      foutput_cube_and_links(stderr,parent_node);
+#endif
 	      fatal_program_error("two nodes intersect but are not related");
 	    }
 	   nb_scanned++;
 	 }
       }
      if(nb_scanned != scan_count)
-      { foutput_cube_and_links(stderr,temp_node);
-	fatal_program_error("some nodes are in the graph but not in the list");
+      {
+#if DEBUG
+		  foutput_cube_and_links(stderr,temp_node);
+#endif
+		  fatal_program_error("some nodes are in the graph but not in the list");
       }
    }
   sprintf(error_buffer,"your graph is perfect and has %d nodes and %d basic\n",

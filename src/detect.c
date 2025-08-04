@@ -37,7 +37,7 @@ int bit_number;
 
   code_number = 0;
   for(; bit_number > 0 ;)
-   { for(mask = 3; mask != NULL && bit_number > 0 ; mask = mask << 2)
+   { for(mask = 3; mask != 0 && bit_number > 0 ; mask = mask << 2)
       { if((mask & code) == (mask & *cube)) code_number++;
         bit_number--;
       }

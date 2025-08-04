@@ -32,7 +32,7 @@ AUTHOR
 ***************************************************************************/
 
 #include <stdio.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include "param.h"
 #define ASK 1
 #define NOASK 0
@@ -133,7 +133,7 @@ int parmc,argc;
 
       else
        { cursor = argv[i] + 1;
-         for(; *cursor != NULL ;)
+         for(; *cursor != 0 ;)
           { for(j = 0 ; j < parmc ; j++)
              { if((length = match_string(parmv[j].name,cursor)) > 0)
 
@@ -411,7 +411,7 @@ int source;
           }
 	 else
           { begin_ext = sfind_next_car('.',buffer);
-	    *(begin_ext + 1) = NULL;
+	    *(begin_ext + 1) = 0;
 	    append_string(p2->default_ext2,buffer);
 	    if((*(p2->fp2) = fopen(buffer,p2->access2)) == NULL)
              { fprintf(stderr,
@@ -579,7 +579,7 @@ copy_string(string_in,string_out)
 char *string_in,*string_out;
 
 {
-  for(; (*(string_out++) = *(string_in++)) != NULL ;);
+  for(; (*(string_out++) = *(string_in++)) != 0 ;);
 }
 
 /***********************************************************************/
@@ -601,7 +601,7 @@ char *string;
 
 {
   int length;
-  for(length = 0 ; *(string++) != NULL ; length++);
+  for(length = 0 ; *(string++) != 0 ; length++);
   return(length);
 }
 
@@ -644,10 +644,10 @@ int match_string(string_searched,line)
 char *string_searched,*line;
 {
   int length;
-  for(length = 0 ; *string_searched != NULL && *line != NULL ; length++)
+  for(length = 0 ; *string_searched != 0 && *line != 0 ; length++)
    { if(*(string_searched++) != *(line++)) return(0);
    }
-  if(*string_searched == NULL) return(length);
+  if(*string_searched == 0) return(length);
   return(0);
 }
 
@@ -657,8 +657,8 @@ char *sfind_next_car(car,string)
 
 char car,*string;
 {
-  for(; *string != NULL && *string == car ; string++);
-  for(; *string != NULL && *string != car ; string++);
+  for(; *string != 0 && *string == car ; string++);
+  for(; *string != 0 && *string != car ; string++);
   if(*string == car) return(string);
   return(0);
 }
@@ -669,8 +669,8 @@ append_string(string,line)
 
 char *string,*line;
 {
-  for(; *line != NULL ; line++);
-  for(; (*(line++) = *(string++)) != NULL ;);
+  for(; *line != 0 ; line++);
+  for(; (*(line++) = *(string++)) != 0 ;);
 }
 
 /**********************************************************************
@@ -728,7 +728,7 @@ char *buffer;
 	else *cursor = replace[i];
       }
      else *cursor = *buffer;
-     if(*cursor == NULL) return;
+     if(*cursor == 0) return;
      cursor++;
      buffer++;
    }

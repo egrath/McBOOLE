@@ -1,5 +1,5 @@
 #include "cubes.h"
-#include <malloc.h>
+#include <stdlib.h>
 
 /***********************************************************************
 
@@ -120,13 +120,13 @@ struct node *list;
 
 /* we first extract from the list the essential prime implicants */
 
-  pass_counter = NULL;
+  pass_counter = 0;
 
 #ifdef CHECK
   check_graph();
 #endif
 
-  scan_count = NULL;
+  scan_count = 0;
   essential_prime_implicants();
 
   sprintf(error_buffer,"The function has %d essential PI",scan_count);
@@ -347,7 +347,7 @@ recursive_find_covering()
 
 /* if only retained nodes and unretained nodes are present we have the answer */
 
-        if(scan_count == NULL) return;
+        if(scan_count == 0) return;
 
 /* We have a cycle, if the branching depth reached the limit, we will simply
    pick a node and continue in the loop.			*/
@@ -419,7 +419,7 @@ recursive_find_covering()
   if(branching_depth > max_branching_depth)
 				max_branching_depth = branching_depth;
 
-  for(; scan_count != NULL ;)
+  for(; scan_count != 0 ;)
    { current_node = *retained_nodes;
      scan_count = 1;
      increment_pass_count();

@@ -273,7 +273,7 @@ char *literal;
    mask goes to 0, we reached the end of a word, we then increment the word
    pointer and start again with a mask of 000000011.			*/
 
-    { for( mask = 3 ; mask != NULL && length > 0 ; mask = mask << 2)
+    { for( mask = 3 ; mask != 0 && length > 0 ; mask = mask << 2)
  
        { mask_word = *word & mask;
 
