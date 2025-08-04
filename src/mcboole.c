@@ -130,9 +130,6 @@ main(argc,argv)
 int argc;
 char **argv;
 {
-  input_file = stdin;
-  output_file = stdout;
-
   struct node 
 	*temp_node,	/* temp pointer in the list */
 	*list;		/* list of nodes to minimize */
@@ -141,6 +138,10 @@ char **argv;
 	nb_nodes,		/* number of nodes read */ 
 	input_literal,		/* number of literal at input */
 	output_literal;		/* number of literal at output */
+
+  /* set file descriptor associations */
+  input_file = stdin;
+  output_file = stdout;
   
 /* We call the very nice function that handles the input of all the 
    parameters and provides the appropriate messages.		*/
